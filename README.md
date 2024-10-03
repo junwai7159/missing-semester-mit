@@ -1,6 +1,19 @@
 # ./missing-semester
+My notes for **The Missing Semester of Your CS Education**.
 
-## Topic 1: The Shell
+## Contents
+- [Lecture 1: The Shell](#lecture-1-the-shell)
+- [Lecture 2: Shell Tools and Scripting](#lecture-2-shell-tools-and-scripting)
+- [Lecture 3: Editors (Vim)](#lecture-3-editors-vim)
+- [Lecture 4: Data Wrangling](#lecture-4-data-wrangling)
+- [Lecture 5: Command-line Environment](#lecture-5-command-line-environment)
+- [Lecture 6: Version Control (Git)](#lecture-6-version-control-git)
+- [Lecture 7: Debugging and Profiling](#lecture-7-debugging-and-profiling)
+- [Lecture 8: Metaprogramming](#lecture-8-metaprogramming)
+- [Lecture 9: Security and Cryptography](#lecture-9-security-and-cryptography)
+- [Lecture 10: Potpourri](#lecture-9-security-and-cryptography)
+
+## Lecture 1: The Shell
 ### What is the shell?
 - textual interface
 - shell vs terminal
@@ -143,6 +156,24 @@ echo 3 | sudo tee brightness
 - `sh`: Bourne shell
 - `chmod`: change file permissions
 - shebang: `#!` beginning of a script, specifies the intepreter to be used, e.g. `#!/bin/bash`
+
+## Lecture 2: Shell Tools and Scripting
+
+## Lecture 3: Editors (Vim)
+
+## Lecture 4: Data Wrangling
+
+## Lecture 5: Command-line Environment
+
+## Lecture 6: Version Control (Git)
+
+## Lecture 7: Debugging and Profiling
+
+## Lecture 8: Metaprogramming
+
+## Lecture 9: Security and Cryptography
+
+## Lecture 10: Potpourri
 
 ## References
 - https://missing.csail.mit.edu/
