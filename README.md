@@ -286,14 +286,71 @@ for arg in reversed(sys.argv[1:]):
 
 ### Shell Tools
 #### Finding how to use commands
+- help, man, tldr
 
 #### Finding files
+**find file or directory**:
+```
+# Find all directories named src
+find . -name src -type d
+# Find all python files that have a folder named test in their path
+find . -path '*/test/*.py' -type f
+# Find all files modified in the last day
+find . -mtime -1
+# Find all zip files with size in range 500k to 10M
+find . -size +500k -size -10M -name '*.tar.gz'
+```
+
+**Perform actions**:
+```
+# Delete all files with .tmp extension
+find . -name '*.tmp' -exec rm {} \;
+# Find all PNG files and convert them to JPG
+find . -name '*.png' -exec convert {} {}.jpg \;
+```
+
+**`fd`**:
+- alternative to `find`
+- offers some nice defaults like colorized output, default regex matching, and Unicode support
+```
+fd "*.py"
+```
+
+**`locate`**:
+- uses a database that is updated using `updatedb`
+- `updatedb` is updated daily via `cron`
 
 #### Finding code
+**`grep`**:
+- `-R`: recursive search
+- `-C`: context lines
+- `-v`: invert match
+
+**`rg`**:
+```
+# Find all python files where I used the requests library
+rg -t py 'import requests'
+# Find all files (including hidden files) without a shebang line
+rg -u --files-without-match "^#\!"
+# Find all matches of foo and print the following 5 lines
+rg foo -A 5
+# Print statistics of matches (# of matched lines and files )
+rg --stats PATTERN
+```
 
 #### Finding shell commands
+- up arrow
+- `history`, e.g. `history | grep`
+- `Ctrl + R`
+- `fzf`: fuzzy finder
+- `fish`: history-based autosuggestions
+
 
 #### Directory navigation
+- shell aliases: `alias`
+- symlinks: `ln -s`
+- autojump: `fasd`, `autojump`
+- overview of directory structure: `tree`, `broot`, `nnn`, `ranger`
 
 ### Exercise
 
