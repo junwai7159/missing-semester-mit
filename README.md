@@ -1028,8 +1028,14 @@ Allow to specify which modifications should be included in the next snapshot
 - `.gitignore`: specify intentionally untracked files to ignore
 - `git show <commit>`: show commit
 
-### Workflows (big projects)
-Different approaches:
+### Workflows
+- Feature branch workflow
+- Forking workflow
+- Gitflow workflow 
+
+![git-flow](./media/git-flow.png)
+
+**References**:
 - https://www.endoflineblog.com/gitflow-considered-harmful
 - https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 - https://nvie.com/posts/a-successful-git-branching-model/
