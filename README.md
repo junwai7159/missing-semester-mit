@@ -21,7 +21,7 @@ My notes for **The Missing Semester of Your CS Education**.
 
 ### Using the shell
 **Launch terminal to open shell prompt:**
-```
+```bash
 missing:~$
 ```
 - `missing`: machine
@@ -29,7 +29,7 @@ missing:~$
 - `$`: you are not the root user
 
 **Echo:**
-```
+```bash
 missing:~$ echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 missing:~$ which echo
@@ -42,7 +42,7 @@ missing:~$ /bin/echo $PATH
 - `which`: which file is executed for a given program name
 
 ### Navigating in the shell
-```
+```bash
 missing:~$ pwd
 /home/missing
 missing:~$ cd /home
@@ -66,7 +66,7 @@ hello
 - `cd -`: to previous directory
 
 **`ls` command:**
-```
+```bash
 missing:~$ ls
 missing:~$ cd ..
 missing:/home$ ls
@@ -87,7 +87,7 @@ home
 ```
   -l                         use a long listing format
 ```
-```
+```bash
 missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
@@ -108,7 +108,7 @@ drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 
 **`cat`**
 - `tac`: reverses the output
-```
+```bash
 missing:~$ echo hello > hello.txt
 missing:~$ cat hello.txt
 hello
@@ -120,7 +120,7 @@ hello
 ```
 
 **Pipes**:
-```
+```bash
 missing:~$ ls -l / | tail -n1
 drwxr-xr-x 1 root  root  4096 Jun 20  2019 var
 missing:~$ curl --head --silent google.com | grep --ignore-case content-length | cut --delimiter=' ' -f2
@@ -138,7 +138,7 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 - `xdg-open`: open file with preferred application
 
 **e.g. change brightness**:
-```
+```bash
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
 /sys/class/backlight/thinkpad_screen/brightness
 $ cd /sys/class/backlight/thinkpad_screen
@@ -149,7 +149,7 @@ open: Permission denied
 - `|`, `>` and `<` are done by the shell
 
 workaround:
-```
+```bash
 echo 3 | sudo tee brightness
 ```
 
@@ -165,7 +165,7 @@ echo 3 | sudo tee brightness
 ## Lecture 2: Shell Tools and Scripting
 ### Shell Scripting
 **Assign variables:**
-```
+```bash
 foo=bar
 echo "$foo"
 # prints bar
@@ -175,7 +175,7 @@ echo '$foo'
 - spacing will perform argument spliting
 
 **Control flow:**
-```
+```bash
 mcd () {
     mkdir -p "$1"
     cd "$1"
@@ -200,7 +200,7 @@ mcd () {
 - `true`: 0 return code, `false`: 1 return code
 
 **Short-circuiting**:
-```
+```bash
 false || echo "Oops, fail"
 # Oops, fail
 
@@ -224,7 +224,7 @@ false ; echo "This will always run"
 - command substitution: `$(CMD)`, execute `CMD`, get the output of the command and substitute in place
 - process substitution: `<(CMD)`, execute `CMD`, place the output in a temporary file and substitute `<()` with that file's name
 - try to use double brackets `[[ ]]` in favor of single brackets `[ ]` in bash, although it won't be portable in `sh` 
-```
+```bash
 #!/bin/bash
 
 echo "Starting program at $(date)" # Date will be substituted
@@ -246,7 +246,7 @@ done
 - glob patterns specify sets of filenames with wildcard characters
 - wildcards: `?` and `*` to match one or any amount of characters respectively
 - curly braces `{}`: common substring in a series of command, to expand
-```
+```bash
 convert image.{png,jpg}
 # Will expand to
 convert image.png image.jpg
@@ -276,7 +276,7 @@ diff <(ls foo) <(ls bar)
 - `env` command to resolve to wherever the command lives in the system
 - e.g. use `#!/usr/bin/env python` instead of `#!/usr/local/bin/python`
 - `shellcheck` to find errors in sh/bash scripts
-```
+```python
 #!/usr/bin/env python
 import sys
 for arg in reversed(sys.argv[1:]):
@@ -295,7 +295,7 @@ for arg in reversed(sys.argv[1:]):
 
 #### Finding files
 **find file or directory**:
-```
+```bash
 # Find all directories named src
 find . -name src -type d
 # Find all python files that have a folder named test in their path
@@ -307,7 +307,7 @@ find . -size +500k -size -10M -name '*.tar.gz'
 ```
 
 **Perform actions**:
-```
+```bash
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
 # Find all PNG files and convert them to JPG
@@ -317,7 +317,7 @@ find . -name '*.png' -exec convert {} {}.jpg \;
 **`fd`**:
 - alternative to `find`
 - offers some nice defaults like colorized output, default regex matching, and Unicode support
-```
+```bash
 fd "*.py"
 ```
 
@@ -332,7 +332,7 @@ fd "*.py"
 - `-v`: invert match
 
 **`rg`**:
-```
+```bash
 # Find all python files where I used the requests library
 rg -t py 'import requests'
 # Find all files (including hidden files) without a shebang line
@@ -456,7 +456,7 @@ TO-DO
 ## Lecture 4: Data Wrangling
 ### Introduction
 **`less`**:
-```
+```bash
 ssh myserver 'journalctl | grep sshd | grep "Disconnected from"' > ssh.log
 less ssh.log
 ```
@@ -464,7 +464,7 @@ less ssh.log
 - `less`: gives a "pager"
 
 **stream editor**:
-```
+```bash
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -484,7 +484,7 @@ ssh myserver journalctl
 - `$` the end of the line
 
 **Example**:
-```
+```bash
 echo 'aba' | sed 's/[ab]//'
 # ba
 echo 'aba' | sed 's/[ab]//g'
@@ -523,7 +523,7 @@ echo 'Disconnected from invalid user Disconnected from 84.211' | perl -pe 's/.*?
 https://regex101.com/r/qqbZqh/2
 
 ### Back to data wrangling
-```
+```bash
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -541,11 +541,11 @@ ssh myserver journalctl
 ### awk - another editor
 **example**:
 the number of single-use usernames that start with c and end with e
-```
+```bash
  | awk '$1 == 1 && $2 ~ /^c[^ ]*e$/ { print $2 }' | wc -l
 ```
 or 
-```
+```bash
 BEGIN { rows = 0 }
 $1 == 1 && $2 ~ /^c[^ ]*e$/ { rows += $1 }
 END { print rows }
@@ -554,7 +554,7 @@ END { print rows }
 ### Analyzing data
 **Calculator**:
 - `bc`
-```
+```bash
 echo "1+2" | bc -l
 # 3
 ```
@@ -562,7 +562,7 @@ echo "1+2" | bc -l
 **Stats**:
 - `st`
 - `R`
-```
+```bash
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -571,7 +571,7 @@ ssh myserver journalctl
  | awk '{print $1}' | R --no-echo -e 'x <- scan(file="stdin", quiet=TRUE); summary(x)'
 ```
 - `gnuplot` for simple plotting
-```
+```bash
 ssh myserver journalctl
  | grep sshd
  | grep "Disconnected from"
@@ -583,13 +583,13 @@ ssh myserver journalctl
 
 ### Data wrangling to make arguments
 Uninstall old nightly builds of Rust from my system by extracting the old build names using data wrangling tools and then passing them via `xargs` to the uninstaller
-```
+```bash
 rustup toolchain list | grep nightly | grep -vE "nightly-x86" | sed 's/-x86.*//' | xargs rustup toolchain uninstall
 ```
 
 ### Wrangling binary data
 use ffmpeg to capture an image from our camera, convert it to grayscale, compress it, send it to a remote machine over SSH, decompress it there, make a copy, and then display it
-```
+```bash
 ffmpeg -loglevel panic -i /dev/video0 -frames 1 -f image2 -
  | convert - -colorspace gray -
  | gzip
@@ -625,7 +625,7 @@ TO-DO
 
 **Example**:
 - captures `SIGINT` and ignores, no longer stopping
-```
+```python
 #!/usr/bin/env python
 import signal, time
 
@@ -666,7 +666,7 @@ I got a SIGINT, but I am not stopping
 - `&`: runs the command in the background
 - `fg` & `bg` to continue paused job in foreground or background
 - `jobs` list unfinished jobs associated with the current terminal session
-```
+```bash
 $ sleep 1000
 ^Z
 [1]  + 18653 suspended  sleep 1000
@@ -742,7 +742,7 @@ $ jobs
 - make alias persistent: `.bashrc` or `.zshrc`
 
 **Features**:
-```
+```bash
 # Make shorthands for common flags
 alias ll="ls -lh"
 
@@ -789,12 +789,12 @@ alias ll
 ### Remote Machines
 #### Executing commands
 - execute `ls` in the home of `foobar`, `grep` locally the remote output of `ls`
-```
+```bash
 ssh foobar@server ls | grep PATTERN
 ```
 
 - `grep` remotely the local output of `ls`
-```
+```bash
 ls | ssh foobar@server grep PATTERN
 ```
 
@@ -805,12 +805,12 @@ ls | ssh foobar@server grep PATTERN
 
 **Key generation**:
 - To generate public-private key pair
-```
+```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 
 - To check if passphrase is available and validate
-```
+```bash
 ssh-keygen -y -f /path/to/key
 ```
 
@@ -818,11 +818,11 @@ ssh-keygen -y -f /path/to/key
 - `ssh` will look into public key (`.ssh/authorized_keys`) to determine which clients to let in
 
 Copy a public key over
-```
+```bash
 cat .ssh/id_ed25519.pub | ssh foobar@remote 'cat >> ~/.ssh/authorized_keys'
 ```
 or
-```
+```bash
 ssh-copy-id -i .ssh/id_ed25519 foobar@remote
 ```
 
@@ -849,14 +849,14 @@ ssh-copy-id -i .ssh/id_ed25519 foobar@remote
 
 #### SSH Configuration
 **Shell alias**:
-```
+```bash
 alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
 ```
 
 **`~/.ssh/config`**:
 - dotfile, able to be read by other programs like `scp`, `rsync`, `mosh`
 - server side config: `/etc/ssh/sshd_config`
-```
+```bash
 Host vm
     User foobar
     HostName 172.16.174.141
@@ -948,7 +948,7 @@ def load(id):
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
 040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
-- visuliaze `baz.txt`: `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`
+- visualize `baz.txt`: `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`
 ```
 git is wonderful
 ```
@@ -1157,7 +1157,7 @@ TO-DO
     - place logs under `/var/log/journal`
     - `journalctl` to display the log
     - `logger` for logging under the systems logs
-```
+```bash
 logger "Hello Logs"
 # On macOS
 log show --last 1m | grep Hello
@@ -1187,7 +1187,7 @@ Debuggers are programs that let you interact with the execution of a program:
 **`ipdb`**:
 - improved pdb that uses the `IPython` REPL 
 - enabling tab completion, syntax highlighting, better tracebacks, and better introspection - retaining the same interface as the `pdb` module
-```
+```bash
 python -m ipdb bubble.py
 ```
 
@@ -1199,7 +1199,7 @@ python -m ipdb bubble.py
 #### Specialized Tools
 - Programs use **system calls** (a program requests a service from the operating system) to perform actions that only the kernel can
 - `strace` to trace the syscalls made by the program
-```
+```bash
 # On Linux
 sudo strace -e lstat ls -l > /dev/null
 # On macOS
@@ -1235,7 +1235,7 @@ sudo dtruss -t lstat64_extended ls -l > /dev/null
 - computer might be running other process at the same time
 - or waiting for events to happen
 - *User* + *Sys*: how much time the process actually spent in the CPU
-```
+```python
 import time, random
 n = random.randint(1, 10) * 100
 
@@ -1266,7 +1266,7 @@ print(time.time() - start)
 - 2 seconds for the request to complete
 - 15ms of CPU user time
 - 12ms of kenel CPU time
-```
+```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
 real    0m2.561s
 user    0m0.015s
@@ -1283,7 +1283,7 @@ sys     0m0.012s
 
 **Python `cProfile`**:
 - to profile time per fuction call
-```
+```python
 #!/usr/bin/env python
 
 import sys, re
@@ -1307,7 +1307,7 @@ if __name__ == '__main__':
 - IO takes most of the time
 - compiling the regex takes a fair amount of time
 - caveat: display time per function call
-```
+```bash
 $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 
 [omitted program output]
@@ -1330,7 +1330,7 @@ $ python -m cProfile -s tottime grep.py 1000 '^(import|\s*def)[^,]*$' *.py
 - using `cProfile` would get over 2500 lines of output
 - even with sorting, hard to understand where the time is spent
 - line profiler: shows the time taken per line
-```
+```python
 #!/usr/bin/env python
 import requests
 from bs4 import BeautifulSoup
@@ -1348,7 +1348,7 @@ def get_urls():
 if __name__ == '__main__':
     get_urls()
 ```
-```
+```bash
 $ kernprof -l -v a.py
 Wrote profile results to urls.py.lprof
 Timer unit: 1e-06 s
@@ -1376,7 +1376,7 @@ Line #  Hits         Time  Per Hit   % Time  Line Contents
     - garbage collected languages
     - as long as having pointers to objects to memory, they won't be garbage collected
 
-```
+```python
 @profile
 def my_func():
     a = [1] * (10 ** 6)
@@ -1387,7 +1387,7 @@ def my_func():
 if __name__ == '__main__':
     my_func()
 ```
-```
+```bash
 $ python -m memory_profiler example.py
 Line #    Mem usage  Increment   Line Contents
 ==============================================
@@ -1424,7 +1424,7 @@ Line #    Mem usage  Increment   Line Contents
 **Specialized tools**:
 - `hyperfine`: quickly benchmark command line programs
 - `fd` was 20x faster than `find`
-```
+```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
 Benchmark #1: fd -e jpg
   Time (mean ± σ):      51.4 ms ±   2.9 ms    [User: 121.0 ms, System: 160.5 ms]
@@ -1449,7 +1449,7 @@ TO-DO
 -  the things named on the right-hand side are dependencies, and the left-hand side is the target
 - the indented block is a sequence of programs to produce the target from those dependencies
 - the first directive is the default goal
-```
+```bash
 paper.pdf: paper.tex plot-data.png
 	pdflatex paper.tex
 
@@ -1528,7 +1528,7 @@ hash(value: array<byte>) -> vector<byte, N>  (for some fixed N)
     - commitment schemes
 
 **Example**:
-```
+```bash
 $ printf 'hello' | sha1sum
 aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d
 $ printf 'hello' | sha1sum
@@ -1598,6 +1598,110 @@ Detailed explanation at https://missing.csail.mit.edu/2020/security/:
 TO-DO
 
 ## Lecture 10: Potpourri
+### Daemons
+- processes that runs in the background rather than waiting for a user to launch them and interact with them
+- programs that run as daemon ofthen end with a `d`, e.g. `sshd` (SSH daemon), `systemd` (running and setting up daemon processes)
+- `systemctl status` to list current runing daemons
+- e.g. managing the network, solving DNS queries or displaying the graphical interface for the system
+- `cron`: a daemon your system already runs to perform scheduled tasks
+    - if need to run some program with a given frequency
+    - no need to build a custom daemon
+
+**Example**:
+a daemon for running a simple Python app
+```ini
+# /etc/systemd/system/myapp.service
+[Unit]
+Description=My Custom App
+After=network.target
+
+[Service]
+User=foo
+Group=foo
+WorkingDirectory=/home/foo/projects/mydaemon
+ExecStart=/usr/bin/local/python3.7 app.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### FUSE (Filesystem in User Space)
+- UNIX filesystems are traditonally implemented as kernel modules and only the kernel is allowed to perform filesystem calls
+- FUSE allows filesystems to be implemented by a user program
+- Examples:
+    - sshfs: open locally remote files/folder through an SSH connection
+    - rclone: Mount cloud storage services like Dropbox, GDrive, Amazon S3 or Google Cloud Storage and open data locally
+
+### Backups
+- Any data that you haven’t backed up is data that could be gone at any moment, forever
+- 3-2-1 rule:
+    - at least 3 copies of your data
+    - 2 copies in different mediums
+    - 1 of the copies being offsite
+- Bad solutions:
+    - copy of the data on the same disk
+    - an external drive in your home
+    - synchronization solutions (e.g. Dropbox)
+    - disk mirroring solutions (e.g. RAID)
+- Good backups:
+    - versioning
+    - deduplication
+    - security
+    - having offline copies of data in the cloud (e.g. email)
+
+### APIs
+- Structured URLs:
+    - often rooted at `api.service.com`
+    - path and query parameters indicate what data you want to read or what action you want to perform
+- `curl`: used to transfer data with URLs
+- OAuth: a way to give you tokens that can "act as you" on a given service
+    - some APIs require authentication: secret token to include with the request
+- [IFTTT](https://ifttt.com/): provides integrations with tons of services, and lets you chain events from them in nearly arbitrary ways
+
+### Common command-line flags/patterns
+- `--help`: dispaly brief usage instructions
+- `--version` or `-V`: print version
+- `--verbose` or `-v`: produce more verbose output, e.g. `-vvv` to get more verbose outout
+- `--quiet`: only print something on error
+- "dry run": only print what the tools would have done, but do not actually perform the change
+- "interactive" flag: prompt you for each destructive action
+- `-r`: make destructive tools recursive
+- `-` in place of a file name: "standard input" (keyboard by default) or "standard output" (terminal screen by default)
+- `--`: makes a program stop processing flags and options (things starting with `-`):
+    - e.g. remove a file called `-r`: `rm -- -r`
+
+### Window managers
+- "floating" window manager
+- "tiling" window manager
+
+### VPNs
+- just a way for you to change your internet service provider as far as the internet is concerned
+- all your traffic will look like it’s coming from the VPN provider instead of your “real” location
+- and the network you are connected to will only see encrypted traffic
+- when you use a VPN, all you are really doing is shifting your trust from you current ISP to the VPN hosting company, whatever your ISP could see, the VPN provider now sees instead
+- much of your traffic, at least of a sensitive nature, is already encrypted through HTTPS or TLS more generally
+- some VPN providers are malicious (or at the very least opportunist), and will log all your traffic, and possibly sell information about it to third parties
+- WireGuard to roll your own VPN
+
+### Booting + Live USBs
+**Booting**:
+- When machine boots up, before the OS is loaded, the BIOS/UEFI initializes the system
+- “Press F9 to configure BIOS. Press F12 to enter boot menu.” during the boot process
+- BIOS menu: configure all sorts of hardware-related settings
+- Boot menu: to boot from an alternate device instead of your hard drive
+
+**Live USBs**:
+- USB flash drives containing an OS
+
+### Docker, Vagrant, VMs, Cloud, OpenStack
+https://missing.csail.mit.edu/2020/potpourri/#docker-vagrant-vms-cloud-openstack
 
 ## References
 - https://missing.csail.mit.edu/
+- https://missing.csail.mit.edu/2019/
+
+## 2019 Lectures to Watch (TO-DO):
+- https://missing.csail.mit.edu/2019/automation/
+- https://missing.csail.mit.edu/2019/web/
+- https://missing.csail.mit.edu/2019/virtual-machines/
